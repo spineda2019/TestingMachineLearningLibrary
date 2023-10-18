@@ -8,6 +8,7 @@ x86
 *.sln
 *.filters
 *.user
+*.vxproj
 
 # User-specific files
 *.rsuser
