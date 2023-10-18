@@ -80,6 +80,21 @@ bool test_lhs_multiply() {
   }
 }
 
+bool test_matrix_multiply() {
+  try {
+    std::vector<std::vector<int>> data{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    tensor_math::Matrix<int> test = tensor_math::Matrix<int>(data);
+    tensor_math::Matrix<int> test2 = tensor_math::Matrix<int>(data);
+
+    return true;
+  } catch (std::exception& e) {
+    std::cout << "Unexpected Left Hand Side multiplication error: Test 3 failed"
+              << std::endl;
+    std::cerr << e.what() << std::endl;
+    return false;
+  }
+}
+
 /**
  * @brief Main Test Suite for ML Library
  * @return 0 if all tests succeed, somthing less than 0 otherwise
