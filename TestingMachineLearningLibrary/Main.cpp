@@ -84,11 +84,13 @@ bool test_lhs_multiply() {
 }
 
 bool test_matrix_multiply() {
+  bool success;
+  std::cout << "TEST 5:" << std::endl;
   try {
-    std::cout << "TEST 5:" << std::endl;
     std::vector<std::vector<int>> data{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     tensor_math::Matrix<int> test = tensor_math::Matrix<int>(data);
     tensor_math::Matrix<int> test2 = tensor_math::Matrix<int>(data);
+
     std::cout << "Squaring below Matrix" << std::endl;
     std::cout << test << std::endl;
     std::cout << test * test2 << std::endl;
@@ -98,14 +100,34 @@ bool test_matrix_multiply() {
 
     std::cout << "{30 36 42}\n{66 81 96}\n{102 126 150}\n" << std::endl;
 
-    std::cout << "Test 5 passed!" << std::endl;
-    return true;
+    success = true;
   } catch (std::exception& e) {
-    std::cout << "Unexpected Left Hand Side multiplication error: Test 5 failed"
+    std::cout << "Unexpected matrix multiplication error: Test 5 failed"
               << std::endl;
     std::cerr << "Caught Error: " << e.what() << std::endl;
-    return false;
+    success = false;
   }
+
+  try {
+    std::vector<std::vector<int>> data{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    std::vector<std::vector<int>> data2{{1, 2, 3}, {4, 5, 6}};
+
+    tensor_math::Matrix<int> test = tensor_math::Matrix<int>(data);
+    tensor_math::Matrix<int> test2 = tensor_math::Matrix<int>(data2);
+
+    std::cout << "3x3 mat x 2x3 mat should fail" << std::endl;
+    std::cout << test * test2 << std::endl;
+
+    std::cout << "Unexpected matrix success: Test 5 failed..." << std::endl;
+    success = false;
+  } catch (MatrixMultiplicationMismatchException& e) {
+    std::cerr << "Caught Error: " << e.what() << std::endl;
+    std::cout << "Successfuly caught expected exception: Test 5 passed!"
+              << std::endl;
+    success = true;
+  }
+
+  return success;
 }
 
 /**
