@@ -276,12 +276,11 @@ bool test_subtract_rows() {
 bool test_empty_matrix() {
   std::cout << "\nTEST 11:" << std::endl;
   try {
-
     tensor_math::Matrix<int> test = tensor_math::Matrix<int>(3, 3);
     std::cout << "Below Matrix should be empty" << std::endl;
     std::cout << test << std::endl;
     return true;
-  
+
   } catch (std::exception& e) {
     std::cout << "Test 11 failed..." << std::endl;
     return false;
@@ -315,6 +314,45 @@ bool test_LU() {
   return success;
 }
 
+bool test_det() {
+  std::cout << "\nTEST 13:" << std::endl;
+  bool success;
+  try {
+    std::vector<std::vector<float>> data{{1, 1, -1}, {1, -2, 3}, {2, 3, 1}};
+    tensor_math::Matrix<float> test = tensor_math::Matrix<float>(data);
+
+    std::vector<std::vector<float>> data2{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    tensor_math::Matrix<float> test2 = tensor_math::Matrix<float>(data2);
+
+    std::vector<std::vector<float>> data3{
+        {1, 0, 0, 0, 0, 2}, {0, 1, 0, 0, 2, 0}, {0, 0, 1, 2, 0, 0},
+        {0, 0, 2, 1, 0, 0}, {0, 2, 0, 0, 1, 0}, {2, 0, 0, 0, 0, 1}};
+    tensor_math::Matrix<float> test3 = tensor_math::Matrix<float>(data3);
+
+    std::cout << "Det of matrix:" << std::endl;
+    std::cout << test << std::endl;
+    std::cout << "is: " << std::endl;
+    std::cout << test.Det() << std::endl;
+
+    std::cout << "Det of matrix:" << std::endl;
+    std::cout << test2 << std::endl;
+    std::cout << "is: " << std::endl;
+    std::cout << test2.Det() << std::endl;
+
+    std::cout << "Det of matrix:" << std::endl;
+    std::cout << test3 << std::endl;
+    std::cout << "is: " << std::endl;
+    std::cout << test3.Det() << std::endl;
+
+    success = true;
+  } catch (std::exception& e) {
+    std::cout << "Unexpected Addition failure: Test 12 failed..." << std::endl;
+    return false;
+  }
+
+  return success;
+}
+
 /**
  * @brief Main Test Suite for ML Library
  * @return 0 if all tests succeed, somthing less than 0 otherwise
@@ -332,6 +370,7 @@ int main() {
   bool test_10 = test_subtract_rows();
   bool test_11 = test_empty_matrix();
   bool test_12 = test_LU();
+  bool test_13 = test_det();
 
   bool all_tests_passed =
       test_1 && test_2 && test_3 && test_4 && test_5 && test_6;
